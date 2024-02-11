@@ -61,6 +61,7 @@ function App() {
         kraj: item.kraj.nazev,
         podtypId: mapIdToNazevString(item.podtypId),
         typId: getNazevfromId(item.typId),
+        okres: item.okres.nazev,
       }));
       setData(ModifiedData);
       setLoading(false);
