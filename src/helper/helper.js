@@ -200,5 +200,28 @@ const mapIdToNazevString = (id) => {
     }
 };
 
+const cities = [
+  {
+    text: "Brno",
+    value: "Brno"
+  }, 
+  {
+    text: "Hodonín",
+    value: "Hodonín"
+  },
+  {
+    text: "Znojmo",
+    value: "Znojmo"
+  }, 
+  {
+    text: "Vyškov",
+    value: "Vyškov"
+  },
+  {
+    text: "Mikulov",
+    value: "Mikulov"
+  }
+]
 
-export { mapIdToValue , mapIdToStatusString, mapIdToNazevString , getNazevfromId };
+
+export { mapIdToValue , mapIdToStatusString, mapIdToNazevString , getNazevfromId, cities };

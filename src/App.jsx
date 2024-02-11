@@ -19,7 +19,7 @@ const { Header, Content, Footer, Sider } = AntLayout;
 const { SubMenu } = Menu;
 import moment from 'moment';
 import axios from "axios";
-import { mapIdToValue, mapIdToStatusString, mapIdToNazevString, getNazevfromId } from "./helper/helper";
+import { mapIdToValue, mapIdToStatusString, mapIdToNazevString, getNazevfromId, cities } from "./helper/helper";
 
 const columns = [
   { title: "Datum ohlášení", dataIndex: "casOhlaseni", key: "casOhlaseni", render: date => (date instanceof Date) ? date.toLocaleString() : "" },
@@ -28,7 +28,7 @@ const columns = [
   { title: "Podtyp události", dataIndex: "podtypId", key: "podtypId" },
   { title: "Kraj", dataIndex: "kraj", key: "kraj" },
   { title: "Okres", dataIndex: "okres", key: "okres" },
-  { title: "Obec", dataIndex: "obec", key: "obec" },
+  { title: "Obec", dataIndex: "obec", key: "obec", filters: cities, onFilter: (value, record) => record.obec.startsWith(value) },
   { title: "Část obce", dataIndex: "ulice", key: "ulice" },
   { title: "ORP", dataIndex: "ORP", key: "ORP" },
   { title: "Silnice", dataIndex: "silnice", key: "silnice" },
@@ -81,6 +81,7 @@ function App() {
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Výjezdy</Breadcrumb.Item>
           </Breadcrumb>
+          <h1>PlamenZvon</h1>
           <div style={{ padding: 24, minHeight: 360 }}>
             <Spin spinning={loading}>
               <Table dataSource={data} columns={columns}></Table>

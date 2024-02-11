@@ -17,11 +17,4 @@ body {
 * {
   font-family: "ggsans";
   src: "../public/ggsans.ttf";
-  color: #BDBDCE;
-}
-
-.title {
-  font-family: "ggsans";
-  src: "../public/ggsans.ttf";
-  color: #FFFFFF;
 }
