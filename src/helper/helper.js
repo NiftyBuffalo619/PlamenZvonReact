@@ -66,13 +66,13 @@ const mapIdToStatusString = (id) => {
 const getNazevfromId = (id) => {
   switch (id) {
     case 3100:
-      return "Požár";
+      return "🔥Požár";
     case 3200:
       return "Dopravní nehoda";
     case 3400:
       return "Únik nebezpečných látek";
     case 3500:
-      return "Technická pomoc";
+      return "🔧Technická pomoc";
     case 3550:
       return "Záchrana osob a zvířat";
     case 3700:
@@ -223,5 +223,22 @@ const cities = [
   }
 ]
 
+const Statuses = [
+  { text: "Bez SaP", value: 400},
+  { text: "SaP na cestě", value: 410},
+  { text: "SaP na místě", value: 420},
+  { text: "Likvidovaná", value: 440},
+  { text: "Ukončená", value: "Ukončená" /*710*/ },
+  /*{ text: "Ukončená", value: 800},
+  { text: "Ukončená", value: 520},
+  { text: "Ukončená", value: 500},
+  { text: "Ukončená", value: 750},
+  { text: "Ukončená", value: 760},
+  { text: "Ukončená", value: 780},
+  { text: "Ukončená", value: 620},
+  { text: "Ukončená", value: 510},
+  { text: "Ukončená", value: 600},
+  { text: "Ukončená", value: 610},*/
+]
 
-export { mapIdToValue , mapIdToStatusString, mapIdToNazevString , getNazevfromId, cities };
+export { mapIdToValue , mapIdToStatusString, mapIdToNazevString , getNazevfromId, cities, Statuses };
