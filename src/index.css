@@ -11,10 +11,10 @@ body {
 
 @font-face {
   font-family: "ggsans";
-  src: url("../public/ggsans.ttf");
+  src: url("/ggsans.ttf");
 }
 
 * {
   font-family: "ggsans";
-  src: "../public/ggsans.ttf";
+  src: "/ggsans.ttf";
 }

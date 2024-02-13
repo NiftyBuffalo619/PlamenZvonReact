@@ -4,7 +4,6 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import { Layout, Button, DatePicker, theme   } from "antd";
 import AppHeader from "./components/header";
-import "./ggsans.ttf";
 
 
 import { Layout as AntLayout, Menu, Breadcrumb, ConfigProvider, Avatar, Popover, Table, Spin, notification, Collapse } from 'antd';
