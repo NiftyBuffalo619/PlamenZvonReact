@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 body {
   background-color: #424549;
   margin: 0;
@@ -15,6 +17,12 @@ body {
 }
 
 * {
-  font-family: "ggsans";
-  src: "/ggsans.ttf";
+  /*font-family: "ggsans";
+  src: "/ggsans.ttf";*/
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
