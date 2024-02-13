@@ -6,7 +6,7 @@ import { Layout, Button, DatePicker, theme   } from "antd";
 import AppHeader from "./components/header";
 
 
-import { Layout as AntLayout, Menu, Breadcrumb, ConfigProvider, Avatar, Popover, Table, Spin, notification } from 'antd';
+import { Layout as AntLayout, Menu, Breadcrumb, ConfigProvider, Avatar, Popover, Table, Spin, notification, Collapse } from 'antd';
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -33,7 +33,7 @@ const details = (text, loadedContent) => (
 
 const columns = [
   { title: "Datum ohlášení", dataIndex: "casOhlaseni", key: "casOhlaseni", render: date => (date instanceof Date) ? date.toLocaleString() : "" },
-  { title: "Stav", dataIndex: "stavId", key: "stavId", filters: Statuses, onFilter: (value, record) => record.stavId.startsWith("Ukončená" || "SaP na místě" || "Likvidovaná"), },
+  { title: "Stav", dataIndex: "stavId", key: "stavId", filters: Statuses, onFilter: (value, record) => record.stavId.startsWith(value), },
   { title: "Typ události", dataIndex: "typId", key: "typId" },
   { title: "Podtyp události", dataIndex: "podtypId", key: "podtypId" },
   { title: "Kraj", dataIndex: "kraj", key: "kraj" },
@@ -48,13 +48,35 @@ const columns = [
       <Button>Podrobnosti</Button>
     </Popover> },
 ]
+const ShortCutsItems = [
+ {
+  key: "1",
+  label: "Zkratky",
+  children: <>
+    <nav>
+      <ul>
+        <h3>Zkratky</h3>
+        <li><bold>OA</bold> Osobního auta</li>
+        <li><bold>NA</bold> Nákladní automobil</li>
+        <li><bold>A</bold> Autobus</li>
+        <li><bold>AED</bold> Automatizovaný externí defibrilátor</li>
+        <li><bold>ZZS</bold> Zdravotnická záchraná služba</li>
+        <li><bold>PPO</bold> Proti požární opatření</li>
+        <li><bold>CAS cisternová automobilová stříkačka</bold></li>
+      </ul>
+    </nav>
+  </>
+ }
+]
 
 function App() {
   const AvatarImageSource = "./mainicon.png";
   const [data, setData] = useState([]);
+  const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [CalloutDataPopover] = useState([]);
   const [CalloutDataLoading, setCalloutDataLoading] = useState(true);
+
 
   const [api, contextHolder] = notification.useNotification();
   const openSuccessNotification = (type) => {
@@ -94,9 +116,9 @@ function App() {
       }));
       setData(ModifiedData);
       setLoading(false);
+      setCount(ModifiedData.length);
       openSuccessNotification("success");
     }).catch(error => {
-      AxiosError = error;
       console.log(error);
       setLoading(false);
     });
@@ -113,11 +135,15 @@ function App() {
             <Breadcrumb.Item>Výjezdy</Breadcrumb.Item>
           </Breadcrumb>
           <h1>PlamenZvon</h1>
+          <h3>Počet Událostí: {count}</h3>
           <div style={{ padding: 24, minHeight: 360 }}>
             <Spin spinning={loading}>
               <Table dataSource={data} columns={columns}></Table>
             </Spin>
           </div>
+          <Collapse items={ShortCutsItems}>
+
+          </Collapse>
         </Content>
         <Footer style={{ textAlign: 'center', fontFamily: "ggsans" }}>Zdroj Dat <a href="https://udalosti.firebrno.cz">FireBrno</a> <br /> PlamenZvon ©2024 Lukáš Poláček</Footer>
       </AntLayout>

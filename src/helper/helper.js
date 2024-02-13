@@ -227,7 +227,7 @@ const Statuses = [
   { text: "Bez SaP", value: 400},
   { text: "SaP na cestě", value: 410},
   { text: "SaP na místě", value: 420},
-  { text: "Likvidovaná", value: 440},
+  { text: "Likvidovaná", value: "Likvidovaná"},
   { text: "Ukončená", value: "Ukončená" /*710*/ },
   /*{ text: "Ukončená", value: 800},
   { text: "Ukončená", value: 520},
