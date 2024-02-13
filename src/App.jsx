@@ -145,7 +145,7 @@ function App() {
 
           </Collapse>
         </Content>
-        <Footer style={{ textAlign: 'center', fontFamily: "ggsans" }}>Zdroj Dat <a href="https://udalosti.firebrno.cz">FireBrno</a> <br /> PlamenZvon ©2024 Lukáš Poláček</Footer>
+        <Footer style={{ textAlign: 'center' }}>Zdroj Dat <a href="https://udalosti.firebrno.cz">FireBrno</a> <br /> PlamenZvon ©2024 Lukáš Poláček</Footer>
       </AntLayout>
     </AntLayout> 
     </>
