@@ -19,12 +19,13 @@ const { Header, Content, Footer, Sider } = AntLayout;
 const { SubMenu } = Menu;
 import moment from 'moment';
 import axios from "axios";
-import { mapIdToValue, mapIdToStatusString, mapIdToNazevString, getNazevfromId, cities, Statuses } from "./helper/helper";
+import { mapIdToValue, mapIdToStatusString, mapIdToNazevString, getNazevfromId, cities, Statuses, Kraje } from "./helper/helper";
 
 const details = (text, loadedContent) => (
   <>
     <h2>Podrobnosti Výjezdu</h2>
     <h3>📝Poznámka pro média</h3>
+    <h3>ID</h3>
     <p>{text}</p>
     <h3>🚒Zasahující jednotky</h3>
     <Spin tip="Načítání Jednotek"></Spin>
@@ -36,14 +37,14 @@ const columns = [
   { title: "Stav", dataIndex: "stavId", key: "stavId", filters: Statuses, onFilter: (value, record) => record.stavId.startsWith(value), },
   { title: "Typ události", dataIndex: "typId", key: "typId" },
   { title: "Podtyp události", dataIndex: "podtypId", key: "podtypId" },
-  { title: "Kraj", dataIndex: "kraj", key: "kraj" },
+  { title: "Kraj", dataIndex: "kraj", key: "kraj", filters: Kraje, onFilter: (value, record) =>  record.kraj.startsWith(value)},
   { title: "Okres", dataIndex: "okres", key: "okres" },
   { title: "Obec", dataIndex: "obec", key: "obec", filters: cities, filterMultiple: true, onFilter: (value, record) => record.obec.startsWith(value) },
   { title: "Část obce", dataIndex: "ulice", key: "ulice" },
   { title: "ORP", dataIndex: "ORP", key: "ORP" },
   { title: "Silnice", dataIndex: "silnice", key: "silnice" },
-  { title: "Poznámka pro média", dataIndex: "poznamkaProMedia", key: "poznamkapromedia", render: (text) =>
-   <Popover trigger="click" content={details(text)}>
+  { title: "Poznámka pro média", dataIndex: "poznamkaProMedia", key: "poznamkapromedia", render: (text, ID) =>
+   <Popover trigger="click" content={details(text, ID)}>
       {text}
       <Button>Podrobnosti</Button>
     </Popover> },
@@ -76,6 +77,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [CalloutDataPopover] = useState([]);
   const [CalloutDataLoading, setCalloutDataLoading] = useState(true);
+  const [InitialFetch, setInitialFetchDone] = useState(false);
 
 
   const [api, contextHolder] = notification.useNotification();
@@ -122,6 +124,47 @@ function App() {
       console.log(error);
       setLoading(false);
     });
+    setInitialFetchDone(true);
+if (InitialFetch) {
+  const Interval = setInterval(() => {
+    const startOfDay = moment().startOf('day').toISOString();
+    const endOfDay = moment().endOf('day').toISOString();
+
+    const params = {
+      casOd: startOfDay,
+      casDo: endOfDay,
+      krajId: 116,
+      stavIds: [
+        210, 400, 410, 420, 430, 440, 500, 510, 520, 600,
+        610, 620, 700, 710, 750, 760, 780, 800
+      ],
+    };
+    axios.get("https://udalosti.firebrno.cz/api/", { params }).then(response => {
+      response.data.map(item => {
+          if (item.silnice == null) {
+            item.silnice = "❌";
+          }
+      });
+      const ModifiedData = response.data.map(item => ({
+        ...item,
+        casOhlaseni: new Date(item.casOhlaseni),
+        stavId: mapIdToValue(item.stavId),
+        kraj: item.kraj.nazev,
+        podtypId: mapIdToNazevString(item.podtypId),
+        typId: getNazevfromId(item.typId),
+        okres: item.okres.nazev,
+      }));
+      setData(ModifiedData);
+      setLoading(false);
+      setCount(ModifiedData.length);
+      openSuccessNotification("success");
+    }).catch(error => {
+      console.log(error);
+      setLoading(false);
+    });
+    }, 60000);
+    return () => clearInterval(Interval);
+}
   }, []);
 
   return (

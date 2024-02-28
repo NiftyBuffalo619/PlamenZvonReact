@@ -218,6 +218,14 @@ const cities = [
     value: "Vyškov"
   },
   {
+    text: "Příbram na Moravě",
+    value: "Příbram na Moravě"
+  },
+  {
+    text: "Bučovice",
+    value: "Bučovice"
+  },
+  {
     text: "Mikulov",
     value: "Mikulov"
   }
@@ -225,8 +233,8 @@ const cities = [
 
 const Statuses = [
   { text: "Bez SaP", value: 400},
-  { text: "SaP na cestě", value: 410},
-  { text: "SaP na místě", value: 420},
+  { text: "SaP na cestě", value: "SaP na cestě"},
+  { text: "SaP na místě", value: "SaP na místě"},
   { text: "Likvidovaná", value: "Likvidovaná"},
   { text: "Ukončená", value: "Ukončená" /*710*/ },
   /*{ text: "Ukončená", value: 800},
@@ -241,4 +249,15 @@ const Statuses = [
   { text: "Ukončená", value: 610},*/
 ]
 
-export { mapIdToValue , mapIdToStatusString, mapIdToNazevString , getNazevfromId, cities, Statuses };
+const Kraje = [
+  {
+    text: "Jihomorvaský kraj",
+    value: "Jihomoravský"
+  }, 
+  {
+    text: "Olomoucký kraj",
+    value: "Olomoucký kraj"
+  }
+]
+
+export { mapIdToValue , mapIdToStatusString, mapIdToNazevString , getNazevfromId, cities, Statuses, Kraje };
